@@ -22,12 +22,10 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    if (!name || !lastName || !idPuesto) {
-      console.log('Por favor, complete todos los campos requeridos');
-      return;
-    }
-  
+    // if (!name || !lastName || !idPuesto) {
+    //   console.log('Por favor, complete todos los campos requeridos');
+    //   return;
+    // }
     addEmployee();
   };
 
@@ -47,7 +45,7 @@ const App = () => {
     console.log('Datos del empleado a enviar:', employeeData);
   
     axios
-    .post(`${baseURL}/save`, employeeData)
+    .post(`${baseURL}/save`,{employeeData})
     .then((res) => {
       console.log('Respuesta del servidor:', res.data);
       setName('');
@@ -57,6 +55,7 @@ const App = () => {
       setAddress('');
       setPhone('');
       setIdPuesto('');
+      setEmployees([...employees, res.data]);  
     })
     .catch((error) => {
       console.log(error);
@@ -69,31 +68,31 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <div className='input_holder'>
           <label htmlFor='name'>Name:</label>
-          <input type='text' id='name' value={name} onChange={(e) => setName(e.target.value)} required />
+          <input type='text' id='name' value={name} onChange={(e) => setName(e.target.value)}  />
         </div>
         <div className='input_holder'>
           <label htmlFor='lastName'>Last Name:</label>
-          <input type='text' id='lastName' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+          <input type='text' id='lastName' value={lastName} onChange={(e) => setLastName(e.target.value)}  />
         </div>
         <div className='input_holder'>
           <label htmlFor='email'>Email:</label>
-          <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)}  />
         </div>
         <div className='input_holder'>
           <label htmlFor='birthdate'>Birthdate:</label>
-          <input type='date' id='birthdate' value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required />
+          <input type='date' id='birthdate' value={birthdate} onChange={(e) => setBirthdate(e.target.value)}  />
         </div>
         <div className='input_holder'>
           <label htmlFor='address'>Address:</label>
-          <input type='text' id='address' value={address} onChange={(e) => setAddress(e.target.value)} required />
+          <input type='text' id='address' value={address} onChange={(e) => setAddress(e.target.value)}  />
         </div>
         <div className='input_holder'>
           <label htmlFor='phone'>Phone:</label>
-          <input type='text' id='phone' value={phone} onChange={(e) => setPhone(e.target.value)} required />
+          <input type='text' id='phone' value={phone} onChange={(e) => setPhone(e.target.value)}  />
         </div>
         <div className='input_holder'>
           <label htmlFor='idPuesto'>Puesto:</label>
-          <select id='idPuesto' value={idPuesto} onChange={(e) => setIdPuesto(e.target.value)} required>
+          <select id='idPuesto' value={idPuesto} onChange={(e) => setIdPuesto(e.target.value)} >
             <option value=''>Selecciona un puesto</option>
             <option value='Chef'>Chef</option>
             <option value='Ayudante'>Ayudante</option>
@@ -104,7 +103,7 @@ const App = () => {
       </form>
 
       <ul>
-        <List employee={employees} />
+        <List employees={employees} />
       </ul>
     </main>
   );

@@ -20,9 +20,9 @@ const EmployeeSchema = new mongoose.Schema({
       type: String,
   },
   idPuesto: {
-      type: Number,
+      type: String,
   }
 });
 
 
-module.exports = mongoose.model("Employee",EmployeeSchema);
+module.exports = mongoose.model("employes",EmployeeSchema);
